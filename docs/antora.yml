@@ -1,0 +1,5 @@
+name: quarkus-mdns
+title: Mdns
+version: dev
+nav:
+  - modules/ROOT/nav.adoc
