@@ -813,8 +813,8 @@ public class JmDNSImpl extends JmDNS implements DNSStatefulObject, DNSTaskStarte
         ServiceInfoImpl info = new ServiceInfoImpl(type, name, subtype, 0, 0, 0, persistent, (byte[]) null);
         DNSEntry pointerEntry = this.getCache()
                 .getDNSEntry(new DNSRecord.Pointer(type, DNSRecordClass.CLASS_ANY, false, 0, info.getQualifiedName()));
-        if (pointerEntry instanceof DNSRecord) {
-            ServiceInfoImpl cachedInfo = (ServiceInfoImpl) ((DNSRecord) pointerEntry).getServiceInfo(persistent);
+        if (pointerEntry instanceof DNSRecord pointerRecord) {
+            ServiceInfoImpl cachedInfo = (ServiceInfoImpl) pointerRecord.getServiceInfo(persistent);
             if (cachedInfo != null) {
                 // To get a complete info record we need to retrieve the service, address and the text bytes.
 
@@ -823,8 +823,8 @@ public class JmDNSImpl extends JmDNS implements DNSStatefulObject, DNSTaskStarte
                 String server = "";
                 DNSEntry serviceEntry = this.getCache().getDNSEntry(info.getQualifiedName(), DNSRecordType.TYPE_SRV,
                         DNSRecordClass.CLASS_ANY);
-                if (serviceEntry instanceof DNSRecord) {
-                    ServiceInfo cachedServiceEntryInfo = ((DNSRecord) serviceEntry).getServiceInfo(persistent);
+                if (serviceEntry instanceof DNSRecord serviceRecord) {
+                    ServiceInfo cachedServiceEntryInfo = serviceRecord.getServiceInfo(persistent);
                     if (cachedServiceEntryInfo != null) {
                         cachedInfo = new ServiceInfoImpl(map, cachedServiceEntryInfo.getPort(),
                                 cachedServiceEntryInfo.getWeight(), cachedServiceEntryInfo.getPriority(), persistent,
@@ -835,8 +835,8 @@ public class JmDNSImpl extends JmDNS implements DNSStatefulObject, DNSTaskStarte
                 }
                 for (DNSEntry addressEntry : this.getCache().getDNSEntryList(server, DNSRecordType.TYPE_A,
                         DNSRecordClass.CLASS_ANY)) {
-                    if (addressEntry instanceof DNSRecord) {
-                        ServiceInfo cachedAddressInfo = ((DNSRecord) addressEntry).getServiceInfo(persistent);
+                    if (addressEntry instanceof DNSRecord addressRecord) {
+                        ServiceInfo cachedAddressInfo = addressRecord.getServiceInfo(persistent);
                         if (cachedAddressInfo != null) {
                             for (Inet4Address address : cachedAddressInfo.getInet4Addresses()) {
                                 cachedInfo.addAddress(address);
@@ -847,8 +847,8 @@ public class JmDNSImpl extends JmDNS implements DNSStatefulObject, DNSTaskStarte
                 }
                 for (DNSEntry addressEntry : this.getCache().getDNSEntryList(server, DNSRecordType.TYPE_AAAA,
                         DNSRecordClass.CLASS_ANY)) {
-                    if (addressEntry instanceof DNSRecord) {
-                        ServiceInfo cachedAddressInfo = ((DNSRecord) addressEntry).getServiceInfo(persistent);
+                    if (addressEntry instanceof DNSRecord addressRecord) {
+                        ServiceInfo cachedAddressInfo = addressRecord.getServiceInfo(persistent);
                         if (cachedAddressInfo != null) {
                             for (Inet6Address address : cachedAddressInfo.getInet6Addresses()) {
                                 cachedInfo.addAddress(address);
@@ -859,8 +859,8 @@ public class JmDNSImpl extends JmDNS implements DNSStatefulObject, DNSTaskStarte
                 }
                 DNSEntry textEntry = this.getCache().getDNSEntry(cachedInfo.getQualifiedName(), DNSRecordType.TYPE_TXT,
                         DNSRecordClass.CLASS_ANY);
-                if (textEntry instanceof DNSRecord) {
-                    ServiceInfo cachedTextInfo = ((DNSRecord) textEntry).getServiceInfo(persistent);
+                if (textEntry instanceof DNSRecord record) {
+                    ServiceInfo cachedTextInfo = record.getServiceInfo(persistent);
                     if (cachedTextInfo != null) {
                         cachedInfo._setText(cachedTextInfo.getTextBytes());
                     }

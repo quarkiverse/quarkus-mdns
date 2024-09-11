@@ -1090,7 +1090,7 @@ public class ServiceInfoImpl extends ServiceInfo implements DNSListener, DNSStat
      */
     @Override
     public boolean equals(Object obj) {
-        return (obj instanceof ServiceInfoImpl) && getQualifiedName().equals(((ServiceInfoImpl) obj).getQualifiedName());
+        return (obj instanceof ServiceInfoImpl sii) && getQualifiedName().equals(sii.getQualifiedName());
     }
 
     /**
@@ -1318,8 +1318,7 @@ public class ServiceInfoImpl extends ServiceInfo implements DNSListener, DNSStat
     public boolean hasSameAddresses(ServiceInfo other) {
         if (other == null)
             return false;
-        if (other instanceof ServiceInfoImpl) {
-            ServiceInfoImpl otherImpl = (ServiceInfoImpl) other;
+        if (other instanceof ServiceInfoImpl otherImpl) {
             return _ipv4Addresses.size() == otherImpl._ipv4Addresses.size()
                     && _ipv6Addresses.size() == otherImpl._ipv6Addresses.size() &&
                     _ipv4Addresses.equals(otherImpl._ipv4Addresses) && _ipv6Addresses.equals(otherImpl._ipv6Addresses);

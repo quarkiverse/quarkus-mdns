@@ -63,7 +63,7 @@ public abstract class DNSRecord extends DNSEntry {
      */
     @Override
     public boolean equals(Object other) {
-        return (other instanceof DNSRecord) && super.equals(other) && sameValue((DNSRecord) other);
+        return (other instanceof DNSRecord dnsr) && super.equals(other) && sameValue(dnsr);
     }
 
     /**
@@ -491,7 +491,7 @@ public abstract class DNSRecord extends DNSEntry {
          */
         @Override
         public boolean isSameEntry(DNSEntry entry) {
-            return super.isSameEntry(entry) && (entry instanceof Pointer) && this.sameValue((Pointer) entry);
+            return super.isSameEntry(entry) && (entry instanceof Pointer p) && this.sameValue(p);
         }
 
         @Override

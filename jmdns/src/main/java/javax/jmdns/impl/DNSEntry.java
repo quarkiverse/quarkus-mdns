@@ -84,8 +84,7 @@ public abstract class DNSEntry {
     @Override
     public boolean equals(Object obj) {
         boolean result = false;
-        if (obj instanceof DNSEntry) {
-            DNSEntry other = (DNSEntry) obj;
+        if (obj instanceof DNSEntry other) {
             result = this.getKey().equals(other.getKey()) && this.getRecordType().equals(other.getRecordType())
                     && this.getRecordClass() == other.getRecordClass();
         }

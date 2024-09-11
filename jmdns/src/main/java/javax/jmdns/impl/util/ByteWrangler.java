@@ -124,11 +124,10 @@ public class ByteWrangler {
                     writeUTF(out2, key);
                     if (val == null) {
                         // Skip
-                    } else if (val instanceof String) {
+                    } else if (val instanceof String string) {
                         out2.write('=');
-                        writeUTF(out2, (String) val);
-                    } else if (val instanceof byte[]) {
-                        byte[] bval = (byte[]) val;
+                        writeUTF(out2, string);
+                    } else if (val instanceof byte[] bval) {
                         if (bval.length > 0) {
                             out2.write('=');
                             out2.write(bval, 0, bval.length);
