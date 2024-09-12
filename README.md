@@ -46,7 +46,7 @@ quarkus.http.port=8081
 quarkus.mdns.host=integration
 ```
 
-Will expose your server on mDNS as `http://myserver:8081` as an HTTP service type `_http._tcp.local.`.
+Will expose your server on mDNS as `http://integration:8081` as an HTTP service type `_http._tcp.local.`.
 
 ![Mdns UI](./docs/modules/ROOT/assets/images/devui.png)
 
