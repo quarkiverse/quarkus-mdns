@@ -1,6 +1,7 @@
 package io.quarkiverse.mdns.deployment;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import org.jboss.logging.Logger;
 
@@ -9,12 +10,15 @@ import io.quarkiverse.mdns.runtime.MdnsRecorder;
 import io.quarkiverse.mdns.runtime.MdnsRuntimeConfig;
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.BeanContainerBuildItem;
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.LaunchModeBuildItem;
 import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedPackageBuildItem;
+import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
 import io.quarkus.runtime.LaunchMode;
 
 class MdnsProcessor {
@@ -62,6 +66,15 @@ class MdnsProcessor {
     void initializeMdns(BeanContainerBuildItem beanContainer, MdnsRecorder recorder,
             MdnsRuntimeConfig runtimeConfig, ShutdownContextBuildItem shutdownContextBuildItem) {
         recorder.initMdns(beanContainer.getValue(), runtimeConfig, shutdownContextBuildItem);
+    }
+
+    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
+    void runtimeInitializedClasses(BuildProducer<RuntimeInitializedPackageBuildItem> runtimeInitializedPackages) {
+        //@formatter:off
+        Stream.of(javax.jmdns.impl.JmDNSImpl.class.getName())
+                .map(RuntimeInitializedPackageBuildItem::new)
+                .forEach(runtimeInitializedPackages::produce);
+        //@formatter:on
     }
 
 }

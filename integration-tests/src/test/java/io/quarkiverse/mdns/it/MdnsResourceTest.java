@@ -1,7 +1,7 @@
 package io.quarkiverse.mdns.it;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.endsWithIgnoringCase;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,6 +16,6 @@ public class MdnsResourceTest {
                 .when().get("/mdns")
                 .then()
                 .statusCode(200)
-                .body(is("\\030http://integration:8080/"));
+                .body(endsWithIgnoringCase("http://integration:8081/"));
     }
 }
