@@ -42,6 +42,23 @@ endif::add-copy-button-to-env-var[]
 |string
 |
 
+a| [[quarkus-mdns_quarkus-mdns-type]] [.property-path]##`quarkus.mdns.type`##
+
+[.description]
+--
+Fully qualified service type name, such as `_http._tcp.local.`
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_MDNS_TYPE+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_MDNS_TYPE+++`
+endif::add-copy-button-to-env-var[]
+--
+|string
+|`_http._tcp.local.`
+
 |===
 
 

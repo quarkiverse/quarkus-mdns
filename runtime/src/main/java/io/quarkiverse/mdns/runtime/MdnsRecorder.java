@@ -29,10 +29,10 @@ public class MdnsRecorder {
             Optional<Integer> port = ConfigProvider.getConfig().getOptionalValue("quarkus.http.port", Integer.class);
             int quarkusPort = port.orElse(8080);
             final String url = "http://%s:%d/".formatted(hostName, quarkusPort);
-            ServiceInfo serviceInfo = ServiceInfo.create("_http._tcp.local.", hostName, quarkusPort, 0, 0, url);
+            ServiceInfo serviceInfo = ServiceInfo.create(config.type(), hostName, quarkusPort, 0, 0, url);
             jmdns.registerService(serviceInfo);
             LOG.infof("The application is available from: %s", url);
-            producer.initialize(jmdns);
+            producer.initialize(jmdns, url);
             shutdownContext.addShutdownTask(producer::close);
         } catch (IOException e) {
             throw new RuntimeException(e);

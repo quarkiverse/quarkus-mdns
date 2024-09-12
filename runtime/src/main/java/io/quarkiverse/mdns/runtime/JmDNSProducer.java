@@ -6,15 +6,18 @@ import javax.jmdns.JmDNS;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Named;
 import jakarta.inject.Singleton;
 
 @ApplicationScoped
 public class JmDNSProducer {
 
     private volatile JmDNS jmDNS;
+    private volatile String url;
 
-    void initialize(JmDNS jmDNS) {
+    void initialize(JmDNS jmDNS, String url) {
         this.jmDNS = jmDNS;
+        this.url = url;
     }
 
     void close() {
@@ -31,5 +34,11 @@ public class JmDNSProducer {
     @Produces
     public JmDNS jmdns() {
         return jmDNS;
+    }
+
+    @Produces
+    @Named("mdnsExposedUrl")
+    public String getMdnsExposedUrl() {
+        return url;
     }
 }
