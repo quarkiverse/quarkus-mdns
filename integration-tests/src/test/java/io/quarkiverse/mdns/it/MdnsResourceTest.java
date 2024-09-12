@@ -11,11 +11,11 @@ import io.quarkus.test.junit.QuarkusTest;
 public class MdnsResourceTest {
 
     @Test
-    public void testHelloEndpoint() {
+    public void testServiceEndpoint() {
         given()
                 .when().get("/mdns")
                 .then()
                 .statusCode(200)
-                .body(is("Hello mdns"));
+                .body(is("\\030http://integration:8080/"));
     }
 }

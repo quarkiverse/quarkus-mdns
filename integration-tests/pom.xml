@@ -8,7 +8,7 @@
         <version>999-SNAPSHOT</version>
     </parent>
     <artifactId>quarkus-mdns-integration-tests</artifactId>
-    <name>Quarkus Mdns - Integration Tests</name>
+    <name>Quarkus mDNS - Integration Tests</name>
 
     <properties>
         <skipITs>true</skipITs>

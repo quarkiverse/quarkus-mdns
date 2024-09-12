@@ -16,17 +16,32 @@
 */
 package io.quarkiverse.mdns.it;
 
+import javax.jmdns.JmDNS;
+import javax.jmdns.ServiceInfo;
+
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 
 @Path("/mdns")
 @ApplicationScoped
 public class MdnsResource {
-    // add some rest methods here
+
+    @Inject
+    JmDNS jmDNS;
 
     @GET
-    public String hello() {
-        return "Hello mdns";
+    @Produces(MediaType.TEXT_PLAIN)
+    public String listService() {
+        ServiceInfo[] infos = jmDNS.list("_http._tcp.local.");
+        for (ServiceInfo info : infos) {
+            if (info.getServer().equalsIgnoreCase("integration.local.")) {
+                return info.getNiceTextString();
+            }
+        }
+        return "";
     }
 }

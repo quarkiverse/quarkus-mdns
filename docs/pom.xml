@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>quarkus-mdns-docs</artifactId>
-    <name>Quarkus Mdns - Documentation</name>
+    <name>Quarkus mDNS - Documentation</name>
 
     <dependencies>
         <!-- Make sure the doc is built after the other artifacts -->

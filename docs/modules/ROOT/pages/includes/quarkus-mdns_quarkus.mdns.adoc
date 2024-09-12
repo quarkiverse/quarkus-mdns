@@ -1,0 +1,48 @@
+:summaryTableId: quarkus-mdns_quarkus-mdns
+[.configuration-legend]
+icon:lock[title=Fixed at build time] Configuration property fixed at build time - All other configuration properties are overridable at runtime
+[.configuration-reference.searchable, cols="80,.^10,.^10"]
+|===
+
+h|[.header-title]##Configuration property##
+h|Type
+h|Default
+
+a| [[quarkus-mdns_quarkus-mdns-enabled]] [.property-path]##`quarkus.mdns.enabled`##
+
+[.description]
+--
+Indicate if the extension should be enabled. Enabled in DEV mode by default if not explicitly disabled.
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_MDNS_ENABLED+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_MDNS_ENABLED+++`
+endif::add-copy-button-to-env-var[]
+--
+|boolean
+|
+
+a| [[quarkus-mdns_quarkus-mdns-host]] [.property-path]##`quarkus.mdns.host`##
+
+[.description]
+--
+Host name to advertise in mDNS, will use the machine name if left blank.
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_MDNS_HOST+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_MDNS_HOST+++`
+endif::add-copy-button-to-env-var[]
+--
+|string
+|
+
+|===
+
+
+:!summaryTableId:

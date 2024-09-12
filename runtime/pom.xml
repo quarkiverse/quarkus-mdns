@@ -8,12 +8,16 @@
         <version>999-SNAPSHOT</version>
     </parent>
     <artifactId>quarkus-mdns</artifactId>
-    <name>Quarkus Mdns - Runtime</name>
+    <name>Quarkus mDNS - Runtime</name>
 
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-arc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jmdns</groupId>
+            <artifactId>jmdns</artifactId>
         </dependency>
     </dependencies>
 
