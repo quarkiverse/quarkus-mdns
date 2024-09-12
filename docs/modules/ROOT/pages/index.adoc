@@ -1,8 +1,10 @@
-= Quarkus Mdns
+= mDNS
 
 include::./includes/attributes.adoc[]
 
-TIP: Describe what the extension does here.
+A Quarkus extension allowing use of Multicast DNS or `mDNS` to expose service advertisement as well as discover other services on your network.
+
+mDNS is sometimes also called ZeroConf/Bonjour/Avahi/Rendezvous and can work in conjunction with DNS Service Discovery (DNS-SD), a companion zero-configuration networking technique specified separately in RFC 6763.
 
 == Installation
 
@@ -19,9 +21,40 @@ For instance, with Maven, add the following dependency to your POM file:
 </dependency>
 ----
 
+== Service Advertisement
+
+`mDNS` by default will advertise your Quarkus server for HTTP discovery.
+
+[source,properties]
+----
+quarkus.http.port=8081
+quarkus.mdns.host=integration
+----
+
+Will expose your server on mDNS as `http://myserver:8081` as an HTTP service type `_http._tcp.local.`.
+
+== Service Discovery
+
+You may also use `mDNS` to discover other services on your network by using the injectable component.  For example if you wanted to discover all the Apple Airport `_airport._tcp.local.` devices on your local network.
+
+[source,java]
+----
+@Inject
+JmDNS jmdns;
+
+public void listServices() {
+    ServiceInfo[] infos = jmdns.list("_airport._tcp.local.");
+    for (ServiceInfo info : infos) {
+        System.out.println(info);
+    }
+}
+----
+
+Will expose your server on mDNS as `http://myserver:8081` as an HTTP service type `_http._tcp.local.`.
+
+
+
 [[extension-configuration-reference]]
 == Extension Configuration Reference
-
-TIP: Remove this section if you don't have Quarkus configuration properties in your extension.
 
 include::includes/quarkus-mdns.adoc[leveloffset=+1, opts=optional]

@@ -52,7 +52,7 @@ Will expose your server on mDNS as `http://myserver:8081` as an HTTP service typ
 
 ## Service Discovery
 
-You may also use `mDNS` to discover other services on your network by using the injectable component.  For example if you wanted to discover all of the Apple Airport devices on your local network.
+You may also use `mDNS` to discover other services on your network by using the injectable component.  For example if you wanted to discover all the Apple Airport devices on your local network.
 
 ```java
 @Inject
