@@ -15,6 +15,16 @@
       "contributions": [
         "maintenance"
       ]
+    },
+    {
+      "login": "fbricon",
+      "name": "Fred Bricon",
+      "avatar_url": "https://avatars.githubusercontent.com/u/148698?v=4",
+      "profile": "https://fbricon.github.io/",
+      "contributions": [
+        "ideas",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
