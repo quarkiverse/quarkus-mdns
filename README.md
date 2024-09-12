@@ -1,27 +1,80 @@
-# Quarkus Mdns
+<div align="center">
+<img src="https://github.com/quarkiverse/quarkus-mdns/blob/main/docs/modules/ROOT/assets/images/quarkus.svg" width="67" height="70" ><img src="https://github.com/quarkiverse/quarkus-mdns/blob/main/docs/modules/ROOT/assets/images/plus-sign.svg" height="70" ><img src="https://github.com/quarkiverse/quarkus-mdns/blob/main/docs/modules/ROOT/assets/images/mdns.png" height="70" >
 
-[![Version](https://img.shields.io/maven-central/v/io.quarkiverse.mdns/quarkus-mdns?logo=apache-maven&style=flat-square)](https://central.sonatype.com/artifact/io.quarkiverse.mdns/quarkus-mdns-parent)
+# Quarkus mDNS
+</div>
+<br>
 
-## Welcome to Quarkiverse!
+[![Version](https://img.shields.io/maven-central/v/io.quarkiverse.mdns/quarkus-mdns?logo=apache-maven&style=flat-square)](https://search.maven.org/artifact/io.quarkiverse.mdns/quarkus-mdns)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0)
+[![Build](https://github.com/quarkiverse/quarkus-mdns/actions/workflows/build.yml/badge.svg)](https://github.com/quarkiverse/quarkus-mdns/actions/workflows/build.yml)
 
-Congratulations and thank you for creating a new Quarkus extension project in Quarkiverse!
+A Quarkus extension allowing use of Multicast DNS or `mDNS` to expose service discovery as well as discover other services on your network.
 
-Feel free to replace this content with the proper description of your new project and necessary instructions how to use and contribute to it.
+mDNS is sometimes also called ZeroConf/Bonjour/Avahi/Rendezvous and can work in conjunction with DNS Service Discovery (DNS-SD), a companion zero-configuration networking technique specified separately in RFC 6763.
 
-You can find the basic info, Quarkiverse policies and conventions in [the Quarkiverse wiki](https://github.com/quarkiverse/quarkiverse/wiki).
+## Getting started
 
-In case you are creating a Quarkus extension project for the first time, please follow [Building My First Extension](https://quarkus.io/guides/building-my-first-extension) guide.
+Read the full [mDNS documentation](https://docs.quarkiverse.io/quarkus-mdns/dev/index.html).
 
-Other useful articles related to Quarkus extension development can be found under the [Writing Extensions](https://quarkus.io/guides/#writing-extensions) guide category on the [Quarkus.io](https://quarkus.io) website.
+### Installation
 
-Thanks again, good luck and have fun!
+Create a new mdns project (with a base mdns starter code):
 
-## Documentation
+- With [code.quarkus.io](https://code.quarkus.io/?a=mdns-bowl&j=17&e=io.quarkiverse.mdns%3Aquarkus-mdns)
+- With the [Quarkus CLI](https://quarkus.io/guides/cli-tooling):
 
-The documentation for this extension should be maintained as part of this repository and it is stored in the `docs/` directory.
+```bash
+quarkus create app mdns-app -x=io.quarkiverse.mdns:quarkus-mdns
+```
+Or add to you pom.xml directly:
 
-The layout should follow the [Antora's Standard File and Directory Set](https://docs.antora.org/antora/2.3/standard-directories/).
+```xml
+<dependency>
+    <groupId>io.quarkiverse.mdns</groupId>
+    <artifactId>quarkus-mdns</artifactId>
+    <version>{project-version}</version>
+</dependency>
+```
 
-Once the docs are ready to be published, please open a PR including this repository in the [Quarkiverse Docs Antora playbook](https://github.com/quarkiverse/quarkiverse-docs/blob/main/antora-playbook.yml#L7). See an example [here](https://github.com/quarkiverse/quarkiverse-docs/pull/1)
+## Service Advertisement
 
-Your documentation will then be published to the <https://docs.quarkiverse.io/> website.
+`mDNS` by default will advertise your Quarkus server for HTTP discovery.
+
+```properties
+quarkus.http.port=8081
+quarkus.mdns.host=integration
+```
+
+Will expose your server on mDNS as `http://myserver:8081` as an HTTP service type `_http._tcp.local.`.
+
+![Mdns UI](./docs/modules/ROOT/assets/images/devui.png)
+
+## Service Discovery
+
+You may also use `mDNS` to discover other services on your network by using the injectable component.  For example if you wanted to discover all of the Apple Airport devices on your local network.
+
+```java
+@Inject
+JmDNS jmdns;
+
+public void listServices() {
+    ServiceInfo[] infos = jmdns.list("_airport._tcp.local.");
+    for (ServiceInfo info : infos) {
+        System.out.println(info);
+    }
+}
+```
+
+## 🧑‍💻 Contributing
+
+- Contribution is the best way to support and get involved in community!
+- Please, consult our [Code of Conduct](./CODE_OF_CONDUCT.md) policies for interacting in our community.
+- Contributions to `quarkus-mdns` Please check our [CONTRIBUTING.md](./CONTRIBUTING.md)
+
+### If you have any idea or question 🤷
+
+- [Ask a question](https://github.com/quarkiverse/quarkus-mdns/discussions)
+- [Raise an issue](https://github.com/quarkiverse/quarkus-mdns/issues)
+- [Feature request](https://github.com/quarkiverse/quarkus-mdns/issues)
+- [Code submission](https://github.com/quarkiverse/quarkus-mdns/pulls)
