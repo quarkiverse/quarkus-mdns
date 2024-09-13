@@ -24,6 +24,13 @@ public class MdnsDevUIProcessor {
                 .dynamicLabelJsonRPCMethodName("getService");
         card.addPage(sessionPage);
 
+        card.addPage(Page.tableDataPageBuilder("Service Discovery")
+                .icon("font-awesome-solid:table")
+                .showColumn("timestamp")
+                .showColumn("user")
+                .showColumn("fullJoke")
+                .buildTimeDataKey("someKey"));
+
         card.setCustomCard("qwc-mdns-card.js");
 
         cardPageBuildItemBuildProducer.produce(card);

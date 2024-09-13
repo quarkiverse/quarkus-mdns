@@ -12,6 +12,7 @@ import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.BeanContainerBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.Consume;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
@@ -57,11 +58,13 @@ class MdnsProcessor {
     }
 
     @BuildStep
+    @Consume(ExtensionEnabledBuildItem.class)
     AdditionalBeanBuildItem registerBean() {
         return AdditionalBeanBuildItem.unremovableOf(JmDNSProducer.class);
     }
 
     @BuildStep
+    @Consume(ExtensionEnabledBuildItem.class)
     @Record(ExecutionTime.RUNTIME_INIT)
     void initializeMdns(BeanContainerBuildItem beanContainer, MdnsRecorder recorder,
             MdnsRuntimeConfig runtimeConfig, ShutdownContextBuildItem shutdownContextBuildItem) {
@@ -69,6 +72,7 @@ class MdnsProcessor {
     }
 
     @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
+    @Consume(ExtensionEnabledBuildItem.class)
     void runtimeInitializedClasses(BuildProducer<RuntimeInitializedPackageBuildItem> runtimeInitializedPackages) {
         //@formatter:off
         Stream.of(javax.jmdns.impl.JmDNSImpl.class.getName())
