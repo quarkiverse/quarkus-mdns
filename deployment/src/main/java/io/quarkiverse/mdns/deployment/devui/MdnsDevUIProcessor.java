@@ -1,5 +1,9 @@
 package io.quarkiverse.mdns.deployment.devui;
 
+import java.util.Objects;
+
+import javax.jmdns.JmmDNS;
+
 import io.quarkiverse.mdns.runtime.MdnsJsonRPCService;
 import io.quarkus.deployment.IsDevelopment;
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -24,12 +28,12 @@ public class MdnsDevUIProcessor {
                 .dynamicLabelJsonRPCMethodName("getService");
         card.addPage(sessionPage);
 
-        card.addPage(Page.tableDataPageBuilder("Service Discovery")
-                .icon("font-awesome-solid:table")
-                .showColumn("timestamp")
-                .showColumn("user")
-                .showColumn("fullJoke")
-                .buildTimeDataKey("someKey"));
+        final PageBuilder<ExternalPageBuilder> versionPage = Page.externalPageBuilder("Version")
+                .icon("font-awesome-solid:book")
+                .url("https://github.com/jmdns/jmdns")
+                .doNotEmbed()
+                .staticLabel(Objects.toString(JmmDNS.class.getPackage().getImplementationVersion(), "?"));
+        card.addPage(versionPage);
 
         card.setCustomCard("qwc-mdns-card.js");
 
