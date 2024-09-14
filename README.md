@@ -48,6 +48,18 @@ quarkus.mdns.host=integration
 
 Will expose your server on mDNS as `http://integration:8081` as an HTTP service type `_http._tcp.local.`.
 
+Or you can inject it manually and expose any service you like. For example, this would expose it as supporting Apple TouchRemote.
+
+```java
+@Inject
+JmDNS jmdns;
+
+public void advertise() {
+    ServiceInfo serviceInfo = ServiceInfo.create("_touch-remote._tcp", hostName, 1024, 0, 0, "");
+    jmdns.registerService(serviceInfo);
+}
+```
+
 ![Mdns UI](./docs/modules/ROOT/assets/images/devui.png)
 
 ## Service Discovery
