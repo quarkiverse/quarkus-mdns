@@ -21,7 +21,7 @@ public class JmDNSResource {
         ServiceInfo[] infos = jmDNS.list("_http._tcp.local.");
         for (ServiceInfo info : infos) {
             if (info.getServer().equalsIgnoreCase("testing.local.")) {
-                return info.getNiceTextString();
+                return info.getPropertyString("URL");
             }
         }
         return "";

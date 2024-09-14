@@ -28,6 +28,6 @@ public class MdnsDevModeTest {
                 .post("/jmdns/list")
                 .then()
                 .statusCode(200)
-                .body(is("\\024http://testing:8080/"));
+                .body(is("http://testing:8080/"));
     }
 }

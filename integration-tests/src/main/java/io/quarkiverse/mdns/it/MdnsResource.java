@@ -42,7 +42,7 @@ public class MdnsResource {
         ServiceInfo[] infos = jmDNS.list("_http._tcp.local.");
         for (ServiceInfo info : infos) {
             if (info.getServer().equalsIgnoreCase("integration.local.")) {
-                return info.getNiceTextString();
+                return info.getPropertyString("URL");
             }
         }
         return "";
