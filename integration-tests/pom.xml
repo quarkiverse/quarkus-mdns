@@ -20,6 +20,10 @@
             <artifactId>quarkus-rest</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-rest-jackson</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.quarkiverse.mdns</groupId>
             <artifactId>quarkus-mdns</artifactId>
             <version>${project.version}</version>

@@ -16,6 +16,9 @@
 */
 package io.quarkiverse.mdns.it;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceInfo;
 
@@ -43,5 +46,17 @@ public class MdnsResource {
             }
         }
         return "";
+    }
+
+    @GET
+    @Path("/http")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<ServiceRecord> getHttpServices() {
+        List<ServiceRecord> results = new ArrayList<>();
+        ServiceInfo[] infos = jmDNS.list("_http._tcp.local.");
+        for (ServiceInfo info : infos) {
+            results.add(new ServiceRecord(info));
+        }
+        return results;
     }
 }
