@@ -2,6 +2,7 @@ package io.quarkiverse.mdns.runtime;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -29,8 +30,12 @@ public class MdnsRecorder {
             JmDNS jmdns = JmDNS.create(inetAddress, hostName);
             Optional<Integer> port = ConfigProvider.getConfig().getOptionalValue("quarkus.http.port", Integer.class);
             int quarkusPort = port.orElse(8080);
-            final String url = "http://%s:%d/".formatted(hostName, quarkusPort);
-            ServiceInfo serviceInfo = ServiceInfo.create(config.type(), hostName, quarkusPort, 0, 0, Map.of("URL", url));
+            final String url = "http://%s.local:%d/".formatted(hostName, quarkusPort);
+            final Map<String, String> properties = new HashMap<>();
+            properties.put("URL", url);
+            properties.putAll(config.props());
+            ServiceInfo serviceInfo = ServiceInfo.create(config.type(), hostName, quarkusPort, config.weight(),
+                    config.priority(), properties);
             jmdns.registerService(serviceInfo);
             LOG.infof("The application is available from: %s", url);
             producer.initialize(jmdns, url);

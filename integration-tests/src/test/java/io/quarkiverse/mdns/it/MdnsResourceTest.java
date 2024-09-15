@@ -16,6 +16,6 @@ public class MdnsResourceTest {
                 .when().get("/mdns")
                 .then()
                 .statusCode(200)
-                .body(is("http://integration:8081/"));
+                .body(is("http://integration.local:8081/"));
     }
 }

@@ -59,6 +59,57 @@ endif::add-copy-button-to-env-var[]
 |string
 |`_http._tcp.local.`
 
+a| [[quarkus-mdns_quarkus-mdns-weight]] [.property-path]##`quarkus.mdns.weight`##
+
+[.description]
+--
+Weight of the service
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_MDNS_WEIGHT+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_MDNS_WEIGHT+++`
+endif::add-copy-button-to-env-var[]
+--
+|int
+|`0`
+
+a| [[quarkus-mdns_quarkus-mdns-priority]] [.property-path]##`quarkus.mdns.priority`##
+
+[.description]
+--
+Priority of the service
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_MDNS_PRIORITY+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_MDNS_PRIORITY+++`
+endif::add-copy-button-to-env-var[]
+--
+|int
+|`0`
+
+a| [[quarkus-mdns_quarkus-mdns-props-props]] [.property-path]##`quarkus.mdns.props."props"`##
+
+[.description]
+--
+Extra properties to append into the service
+
+
+ifdef::add-copy-button-to-env-var[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_MDNS_PROPS__PROPS_+++[]
+endif::add-copy-button-to-env-var[]
+ifndef::add-copy-button-to-env-var[]
+Environment variable: `+++QUARKUS_MDNS_PROPS__PROPS_+++`
+endif::add-copy-button-to-env-var[]
+--
+|Map<String,String>
+|
+
 |===
 
 

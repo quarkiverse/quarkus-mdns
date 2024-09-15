@@ -1,11 +1,13 @@
 package io.quarkiverse.mdns.runtime;
 
+import java.util.Map;
 import java.util.Optional;
 
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
 import io.smallrye.config.ConfigMapping;
 import io.smallrye.config.WithDefault;
+import io.smallrye.config.WithUnnamedKey;
 
 @ConfigMapping(prefix = "quarkus.mdns")
 @ConfigRoot(phase = ConfigPhase.RUN_TIME)
@@ -26,4 +28,22 @@ public interface MdnsRuntimeConfig {
      */
     @WithDefault("_http._tcp.local.")
     String type();
+
+    /**
+     * Weight of the service
+     */
+    @WithDefault("0")
+    int weight();
+
+    /**
+     * Priority of the service
+     */
+    @WithDefault("0")
+    int priority();
+
+    /**
+     * Extra properties to append into the service
+     */
+    @WithUnnamedKey("localhost")
+    Map<String, String> props();
 }
