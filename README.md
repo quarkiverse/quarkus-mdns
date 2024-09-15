@@ -43,7 +43,7 @@ Or add to you pom.xml directly:
 
 ```properties
 quarkus.http.port=8081
-quarkus.mdns.host=integration
+quarkus.application.name=integration
 ```
 
 Will expose your server on mDNS as `http://integration:8081` as an HTTP service type `_http._tcp.local.`.
@@ -51,11 +51,19 @@ Will expose your server on mDNS as `http://integration:8081` as an HTTP service 
 Or you can inject it manually and expose any service you like. For example, this would expose it as supporting Apple TouchRemote.
 
 ```java
+import java.util.HashMap;
+
 @Inject
 JmDNS jmdns;
 
 public void advertise() {
-    ServiceInfo serviceInfo = ServiceInfo.create("_touch-remote._tcp", hostName, 1024, 0, 0, "");
+    Map<String, String> props = new HashMap<>();
+    props.put("DvNm", "Quarkus Client");
+    props.put("RemV", "10000");
+    props.put("DvTy", "iPod");
+    props.put("RemN", "Remote");
+    props.put("txtvers", "1");
+    ServiceInfo serviceInfo = ServiceInfo.create("_touch-remote._tcp", hostName, 1024, 0, 0, props);
     jmdns.registerService(serviceInfo);
 }
 ```

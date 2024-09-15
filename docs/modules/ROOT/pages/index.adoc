@@ -28,7 +28,7 @@ For instance, with Maven, add the following dependency to your POM file:
 [source,properties]
 ----
 quarkus.http.port=8081
-quarkus.mdns.host=integration
+quarkus.application.name=integration
 ----
 
 Will expose your server on mDNS as `http://myserver:8081` as an HTTP service type `_http._tcp.local.`.
@@ -41,7 +41,13 @@ Or you can inject it manually and expose any service you like. For example, this
 JmDNS jmdns;
 
 public void advertise() {
-    ServiceInfo serviceInfo = ServiceInfo.create("_touch-remote._tcp", hostName, 1024, 0, 0, "");
+    Map<String, String> props = new HashMap<>();
+    props.put("DvNm", "Quarkus Client");
+    props.put("RemV", "10000");
+    props.put("DvTy", "iPod");
+    props.put("RemN", "Remote");
+    props.put("txtvers", "1");
+    ServiceInfo serviceInfo = ServiceInfo.create("_touch-remote._tcp", hostName, 1024, 0, 0, props);
     jmdns.registerService(serviceInfo);
 }
 ----
