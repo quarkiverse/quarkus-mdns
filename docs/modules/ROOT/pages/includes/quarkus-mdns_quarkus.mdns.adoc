@@ -29,7 +29,7 @@ a| [[quarkus-mdns_quarkus-mdns-host]] [.property-path]##`quarkus.mdns.host`##
 
 [.description]
 --
-Host name to advertise in mDNS, will use the machine name if left blank.
+Host name to advertise in mDNS, will use the `quarkus.application.name` then machine name if left blank.
 
 
 ifdef::add-copy-button-to-env-var[]

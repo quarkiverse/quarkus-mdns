@@ -41,7 +41,7 @@ public class MdnsResource {
     public String listService() {
         ServiceInfo[] infos = jmDNS.list("_http._tcp.local.");
         for (ServiceInfo info : infos) {
-            if (info.getServer().equalsIgnoreCase("integration.local.")) {
+            if (info.getServer().equalsIgnoreCase("mdns-tester.local.")) {
                 return info.getPropertyString("URL");
             }
         }

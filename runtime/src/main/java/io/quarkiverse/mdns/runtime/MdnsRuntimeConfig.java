@@ -19,7 +19,7 @@ public interface MdnsRuntimeConfig {
     Optional<Boolean> enabled();
 
     /**
-     * Host name to advertise in mDNS, will use the machine name if left blank.
+     * Host name to advertise in mDNS, will use the `quarkus.application.name` then machine name if left blank.
      */
     Optional<String> host();
 
