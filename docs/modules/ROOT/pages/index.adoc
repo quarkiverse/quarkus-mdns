@@ -23,7 +23,9 @@ For instance, with Maven, add the following dependency to your POM file:
 
 == Service Advertisement
 
-`mDNS` by default will advertise your Quarkus server for HTTP discovery.
+`mDNS` by default will advertise your Quarkus server for HTTP discovery using the default application name.
+
+All this is configurable, for example:
 
 [source,properties]
 ----
@@ -31,7 +33,7 @@ quarkus.http.port=8081
 quarkus.application.name=integration
 ----
 
-Will expose your server on mDNS as `http://myserver:8081` as an HTTP service type `_http._tcp.local.`.
+Will expose your server on mDNS as `http://integration:8081` as an HTTP service type `_http._tcp.local.`.
 
 Or you can inject it manually and expose any service you like. For example, this would expose it as supporting Apple TouchRemote on port 1024.
 
