@@ -13,6 +13,6 @@ metadata:
   config:
     - "quarkus.mdns."
   status: "preview"
-  guide: "https://quarkiverse.github.io/quarkiverse-docs/mdns/dev/"
+  guide: "https://docs.quarkiverse.io/quarkus-mdns/dev/"
   icon-url: "https://raw.githubusercontent.com/quarkiverse/quarkus-mdns/main/docs/modules/ROOT/assets/images/mdns.png"
   sponsor: "KSM Technology Partners"
