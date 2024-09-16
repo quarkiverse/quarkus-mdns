@@ -55,8 +55,6 @@ Will expose your server on mDNS as `http://integration.local:8081` as an HTTP se
 Or you can inject it manually and expose any service you like. For example, this would expose it as supporting Apple TouchRemote.
 
 ```java
-import java.util.HashMap;
-
 @Inject
 JmDNS jmdns;
 
