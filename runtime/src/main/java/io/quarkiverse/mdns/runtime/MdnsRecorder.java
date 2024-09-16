@@ -29,7 +29,7 @@ public class MdnsRecorder {
             Optional<String> httpHost = ConfigProvider.getConfig().getOptionalValue("quarkus.http.host", String.class);
             if (!httpHost.orElse("localhost").equals("0.0.0.0.")) {
                 LOG.warnf(
-                        "For mDNS to work properly 'quarkus.http.host' must be set to '0.0.0.0' for the local HTTP URL to work poperly.");
+                        "For mDNS to work properly, 'quarkus.http.host' must be set to '0.0.0.0' for the local domain URL to be accessible.");
             }
             String defaultName = appName.orElse(inetAddress.getHostName());
             String name = toURLFriendly(config.host().orElse(defaultName));
