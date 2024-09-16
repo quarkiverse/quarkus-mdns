@@ -42,11 +42,15 @@ Or add to you pom.xml directly:
 `mDNS` by default will advertise your Quarkus server for HTTP discovery.
 
 ```properties
+quarkus.http.host=0.0.0.0
 quarkus.http.port=8081
 quarkus.application.name=integration
 ```
 
 Will expose your server on mDNS as `http://integration:8081` as an HTTP service type `_http._tcp.local.`.
+
+> [!IMPORTANT]  
+> `quarkus.http.host` must be set to `0.0.0.0` for the local URL `http://integration:8081` to work properly.  In dev/test mode this defaults to `localhost` which means the mDNS URL will not work.
 
 Or you can inject it manually and expose any service you like. For example, this would expose it as supporting Apple TouchRemote.
 
