@@ -13,6 +13,9 @@ A Quarkus extension allowing use of Multicast DNS or `mDNS` to expose service ad
 
 mDNS is sometimes also called ZeroConf/Bonjour/Avahi/Rendezvous and can work in conjunction with DNS Service Discovery (DNS-SD), a companion zero-configuration networking technique specified separately in RFC 6763.
 
+> [!NOTE]  
+> Quarkus mDNS is an ideal companion if you are writing an IoT (Internet of Things) application as many IoT devices use mDNS for service discovery and advertising.
+
 ## Getting started
 
 Read the full [mDNS documentation](https://docs.quarkiverse.io/quarkus-mdns/dev/index.html).
