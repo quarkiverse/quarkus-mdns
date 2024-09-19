@@ -9,7 +9,7 @@
     </parent>
     <groupId>io.quarkiverse.mdns</groupId>
     <artifactId>quarkus-mdns-parent</artifactId>
-    <version>999-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
     <name>Quarkus mDNS - Parent</name>
     <description>Multicast Domain Name System (mDNS) for service discovery and advertising</description>
@@ -23,7 +23,7 @@
         <connection>scm:git:git@github.com:quarkiverse/quarkus-mdns.git</connection>
         <developerConnection>scm:git:git@github.com:quarkiverse/quarkus-mdns.git</developerConnection>
         <url>https://github.com/quarkiverse/quarkus-mdns</url>
-      <tag>HEAD</tag>
+      <tag>1.0.0</tag>
   </scm>
 
     <properties>
