@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0)
 [![Build](https://github.com/quarkiverse/quarkus-mdns/actions/workflows/build.yml/badge.svg)](https://github.com/quarkiverse/quarkus-mdns/actions/workflows/build.yml)
 
-A Quarkus extension allowing use of Multicast DNS or `mDNS` to expose service advertisement as well as discover other services on your network.
+A Quarkus extension allowing use of Multicast DNS or `mDNS` to expose service advertisement as well as discover other services on your network. It is based on the [JmDNS](https://github.com/jmdns/jmdns) libary.
 
 mDNS is sometimes also called ZeroConf/Bonjour/Avahi/Rendezvous and can work in conjunction with DNS Service Discovery (DNS-SD), a companion zero-configuration networking technique specified separately in RFC 6763.
 
