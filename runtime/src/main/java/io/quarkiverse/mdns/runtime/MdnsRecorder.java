@@ -2,6 +2,10 @@ package io.quarkiverse.mdns.runtime;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -25,9 +29,10 @@ public class MdnsRecorder {
         try {
             JmDNSProducer producer = container.beanInstance(JmDNSProducer.class);
             InetAddress inetAddress = InetAddress.getLocalHost();
+            LOG.infof("Localhost %s IP Address: %s", inetAddress.getHostName(), inetAddress.getHostAddress());
             Optional<String> appName = ConfigProvider.getConfig().getOptionalValue("quarkus.application.name", String.class);
             Optional<String> httpHost = ConfigProvider.getConfig().getOptionalValue("quarkus.http.host", String.class);
-            if (!httpHost.orElse("localhost").equals("0.0.0.0.")) {
+            if (!httpHost.orElse("localhost").equals("0.0.0.0")) {
                 LOG.warnf(
                         "For mDNS to work properly, 'quarkus.http.host' must be set to '0.0.0.0' for the local domain URL to be accessible.");
             }
@@ -67,6 +72,40 @@ public class MdnsRecorder {
         urlFriendly = urlFriendly.replaceAll("[^a-z0-9\\-]", "");
 
         return urlFriendly;
+    }
+
+    public static InetAddress getIpAddress() throws UnknownHostException, SocketException {
+        // Get all network interfaces
+        Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
+
+        InetAddress localhost = InetAddress.getLocalHost();
+        // Print out information about each IP address
+        LOG.infof("Localhost %s IP Address: %s", localhost.getHostName(), localhost.getHostAddress());
+
+        // Iterate through all interfaces
+        while (networkInterfaces.hasMoreElements()) {
+            NetworkInterface networkInterface = networkInterfaces.nextElement();
+
+            // Get all IP addresses for each network interface
+            Enumeration<InetAddress> inetAddresses = networkInterface.getInetAddresses();
+
+            while (inetAddresses.hasMoreElements()) {
+                InetAddress inetAddress = inetAddresses.nextElement();
+
+                if (!inetAddress.isLoopbackAddress() && inetAddress.isSiteLocalAddress()) {
+                    // Print out information about each IP address
+                    LOG.infof("Network Interface: %s", networkInterface.getDisplayName());
+                    LOG.infof("%s IP Address: %s", inetAddress.getHostName(), inetAddress.getHostAddress());
+                    LOG.debugf("    Loopback: %s", inetAddress.isLoopbackAddress());
+                    LOG.debugf("    Site Local: %s", inetAddress.isSiteLocalAddress());
+                    LOG.debugf("    Multicast: %s", inetAddress.isMulticastAddress());
+                    LOG.debugf("    Any Local: %s", inetAddress.isAnyLocalAddress());
+                    LOG.debugf("    Link Local: %s", inetAddress.isLinkLocalAddress());
+                    localhost = inetAddress;
+                }
+            }
+        }
+        return localhost;
     }
 
 }

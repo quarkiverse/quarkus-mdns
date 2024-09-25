@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>io.quarkiverse.mdns</groupId>
         <artifactId>quarkus-mdns-parent</artifactId>
@@ -9,11 +8,9 @@
     </parent>
     <artifactId>quarkus-mdns-integration-tests</artifactId>
     <name>Quarkus mDNS - Integration Tests</name>
-
     <properties>
         <skipITs>true</skipITs>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -43,8 +40,28 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>3.4.1</version>
+                    <configuration>
+                        <executable>docker</executable>
+                        <workingDirectory>${project.basedir}</workingDirectory>
+                        <arguments>
+                            <argument>build</argument>
+                            <argument>-f</argument>
+                            <argument>src/main/docker/Dockerfile.jvm</argument>
+                            <argument>-t</argument>
+                            <argument>melloware/${project.artifactId}:latest</argument>
+                            <argument>.</argument>
+                        </arguments>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>io.quarkus</groupId>
@@ -77,8 +94,44 @@
             </plugin>
         </plugins>
     </build>
-
     <profiles>
+        <profile>
+            <!-- Optionally activate this profile to compile the demo into JVM docker image! -->
+            <id>docker</id>
+            <activation>
+                <property>
+                    <name>docker</name>
+                </property>
+            </activation>
+            <build>
+                <defaultGoal>clean package</defaultGoal>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>docker-build</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>
+                                        <argument>build</argument>
+                                        <argument>-f</argument>
+                                        <argument>src/main/docker/Dockerfile.jvm</argument>
+                                        <argument>-t</argument>
+                                        <argument>melloware/${project.artifactId}:latest</argument>
+                                        <argument>.</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <id>native-image</id>
             <activation>
