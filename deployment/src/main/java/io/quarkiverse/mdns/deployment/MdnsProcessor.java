@@ -75,7 +75,8 @@ class MdnsProcessor {
     @Consume(ExtensionEnabledBuildItem.class)
     void runtimeInitializedClasses(BuildProducer<RuntimeInitializedPackageBuildItem> runtimeInitializedPackages) {
         //@formatter:off
-        Stream.of(javax.jmdns.impl.JmDNSImpl.class.getName())
+        Stream.of(javax.jmdns.impl.JmDNSImpl.class.getName(),
+                  javax.jmdns.impl.JmmDNSImpl.class.getName())
                 .map(RuntimeInitializedPackageBuildItem::new)
                 .forEach(runtimeInitializedPackages::produce);
         //@formatter:on
