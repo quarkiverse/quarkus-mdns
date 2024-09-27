@@ -1,6 +1,7 @@
 import { LitElement, html, css} from 'lit';
 import { pages } from 'build-time-data';
 import {JsonRpc} from 'jsonrpc';
+import '@vaadin/button';
 import 'qwc/qwc-extension-link.js';
 
 export class QwcMdnsCard extends LitElement {
@@ -66,7 +67,20 @@ export class QwcMdnsCard extends LitElement {
                 <div class="description">${this.description}</div>
             </div>
             ${this._renderCardLinks()}
+            ${this._renderActions()}
         </div>
+        `;
+    }
+
+    _renderActions() {
+        return html`
+            <vaadin-button theme="small" @click=${() => this.jsonRpc.launchBrowser().onNext(jsonRpcResponse => {
+                const msg = jsonRpcResponse.result;
+            })} class="button"
+                           title="Launch mDNS Browser">
+                <vaadin-icon class="installIcon" icon="font-awesome-regular:window-restore"></vaadin-icon>
+                Launch mDNS Browser
+            </vaadin-button>
         `;
     }
 
