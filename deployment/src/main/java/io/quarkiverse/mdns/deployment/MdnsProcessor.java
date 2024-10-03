@@ -19,7 +19,6 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.LaunchModeBuildItem;
 import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedPackageBuildItem;
-import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
 import io.quarkus.runtime.LaunchMode;
 
 class MdnsProcessor {
@@ -71,7 +70,7 @@ class MdnsProcessor {
         recorder.initMdns(beanContainer.getValue(), runtimeConfig, shutdownContextBuildItem);
     }
 
-    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
+    @BuildStep
     @Consume(ExtensionEnabledBuildItem.class)
     void runtimeInitializedClasses(BuildProducer<RuntimeInitializedPackageBuildItem> runtimeInitializedPackages) {
         //@formatter:off
