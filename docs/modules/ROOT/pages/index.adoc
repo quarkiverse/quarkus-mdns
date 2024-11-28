@@ -74,9 +74,6 @@ public void listServices() {
 }
 ----
 
-Will expose your server on mDNS as `http://myserver:8081` as an HTTP service type `_http._tcp.local.`.
-
-
 [[extension-configuration-reference]]
 == Extension Configuration Reference
 
