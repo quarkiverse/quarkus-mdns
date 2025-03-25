@@ -40,7 +40,7 @@ public class MdnsDevUIProcessor {
         cardPageBuildItemBuildProducer.produce(card);
     }
 
-    @BuildStep(onlyIf = IsDevelopment.class)
+    @BuildStep
     JsonRPCProvidersBuildItem createJsonRPCService() {
         return new JsonRPCProvidersBuildItem(MdnsJsonRPCService.class);
     }
