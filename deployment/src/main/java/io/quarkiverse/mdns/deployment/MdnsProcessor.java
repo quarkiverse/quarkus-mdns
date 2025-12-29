@@ -66,8 +66,8 @@ class MdnsProcessor {
     @Consume(ExtensionEnabledBuildItem.class)
     @Record(ExecutionTime.RUNTIME_INIT)
     void initializeMdns(BeanContainerBuildItem beanContainer, MdnsRecorder recorder,
-            MdnsRuntimeConfig runtimeConfig, ShutdownContextBuildItem shutdownContextBuildItem) {
-        recorder.initMdns(beanContainer.getValue(), runtimeConfig, shutdownContextBuildItem);
+            ShutdownContextBuildItem shutdownContextBuildItem) {
+        recorder.initMdns(beanContainer.getValue(), shutdownContextBuildItem);
     }
 
     @BuildStep

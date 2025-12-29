@@ -68,7 +68,7 @@ Environment variable: `+++QUARKUS_MDNS_TYPE+++`
 endif::add-copy-button-to-env-var[]
 --
 |string
-|`_http._tcp.local.`
+|`+++_http._tcp.local.+++`
 
 a| [[quarkus-mdns_quarkus-mdns-weight]] [.property-path]##link:#quarkus-mdns_quarkus-mdns-weight[`quarkus.mdns.weight`]##
 ifdef::add-copy-button-to-config-props[]
@@ -89,7 +89,7 @@ Environment variable: `+++QUARKUS_MDNS_WEIGHT+++`
 endif::add-copy-button-to-env-var[]
 --
 |int
-|`0`
+|`+++0+++`
 
 a| [[quarkus-mdns_quarkus-mdns-priority]] [.property-path]##link:#quarkus-mdns_quarkus-mdns-priority[`quarkus.mdns.priority`]##
 ifdef::add-copy-button-to-config-props[]
@@ -110,7 +110,7 @@ Environment variable: `+++QUARKUS_MDNS_PRIORITY+++`
 endif::add-copy-button-to-env-var[]
 --
 |int
-|`0`
+|`+++0+++`
 
 a| [[quarkus-mdns_quarkus-mdns-props-props]] [.property-path]##link:#quarkus-mdns_quarkus-mdns-props-props[`quarkus.mdns.props."props"`]##
 ifdef::add-copy-button-to-config-props[]

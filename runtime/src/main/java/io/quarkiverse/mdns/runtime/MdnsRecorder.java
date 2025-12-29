@@ -20,6 +20,7 @@ import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 
 import io.quarkus.arc.runtime.BeanContainer;
+import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.ShutdownContext;
 import io.quarkus.runtime.annotations.Recorder;
 
@@ -28,7 +29,16 @@ public class MdnsRecorder {
 
     private static final Logger LOG = Logger.getLogger(MdnsRecorder.class);
 
-    public void initMdns(BeanContainer container, MdnsRuntimeConfig config, ShutdownContext shutdownContext) {
+    /**
+     * The runtime configuration for Temporal.
+     */
+    final RuntimeValue<MdnsRuntimeConfig> runtimeConfig;
+
+    public MdnsRecorder(RuntimeValue<MdnsRuntimeConfig> runtimeConfig) {
+        this.runtimeConfig = runtimeConfig;
+    }
+
+    public void initMdns(BeanContainer container, ShutdownContext shutdownContext) {
         try {
             JmDNSProducer producer = container.beanInstance(JmDNSProducer.class);
             InetAddress inetAddress = getIpAddress();
@@ -39,7 +49,7 @@ public class MdnsRecorder {
                         "For mDNS to work properly, 'quarkus.http.host' must be set to '0.0.0.0' for the local domain URL to be accessible.");
             }
             String defaultName = appName.orElse(inetAddress.getHostName());
-            String name = toURLFriendly(config.host().orElse(defaultName));
+            String name = toURLFriendly(runtimeConfig.getValue().host().orElse(defaultName));
             LOG.infof("Registering mDNS service '%s'", name);
             JmDNS jmdns = JmDNS.create(inetAddress, name);
             Optional<Integer> port = ConfigProvider.getConfig().getOptionalValue("quarkus.http.port", Integer.class);
@@ -47,9 +57,10 @@ public class MdnsRecorder {
             final String url = "http://%s.local:%d/".formatted(name, quarkusPort);
             final Map<String, String> properties = new HashMap<>();
             properties.put("URL", url);
-            properties.putAll(config.props());
-            ServiceInfo serviceInfo = ServiceInfo.create(config.type(), name, quarkusPort, config.weight(),
-                    config.priority(), properties);
+            properties.putAll(runtimeConfig.getValue().props());
+            ServiceInfo serviceInfo = ServiceInfo.create(runtimeConfig.getValue().type(), name, quarkusPort,
+                    runtimeConfig.getValue().weight(),
+                    runtimeConfig.getValue().priority(), properties);
             jmdns.registerService(serviceInfo);
             LOG.infof("The application is available from: %s", url);
             producer.initialize(jmdns, url);
