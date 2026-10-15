@@ -14,11 +14,6 @@ import io.smallrye.config.WithUnnamedKey;
 public interface MdnsRuntimeConfig {
 
     /**
-     * Indicate if the extension should be enabled. Enabled in DEV mode by default if not explicitly disabled.
-     */
-    Optional<Boolean> enabled();
-
-    /**
      * Host name to advertise in mDNS, will use the `quarkus.application.name` then machine name if left blank.
      */
     Optional<String> host();

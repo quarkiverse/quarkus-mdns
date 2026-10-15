@@ -7,7 +7,7 @@ h|[.header-title]##Configuration property##
 h|Type
 h|Default
 
-a| [[quarkus-mdns_quarkus-mdns-enabled]] [.property-path]##link:#quarkus-mdns_quarkus-mdns-enabled[`quarkus.mdns.enabled`]##
+a|icon:lock[title=Fixed at build time] [[quarkus-mdns_quarkus-mdns-enabled]] [.property-path]##link:#quarkus-mdns_quarkus-mdns-enabled[`+++quarkus.mdns.enabled+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.mdns.enabled+++[]
 endif::add-copy-button-to-config-props[]
@@ -28,7 +28,7 @@ endif::add-copy-button-to-env-var[]
 |boolean
 |
 
-a| [[quarkus-mdns_quarkus-mdns-host]] [.property-path]##link:#quarkus-mdns_quarkus-mdns-host[`quarkus.mdns.host`]##
+a| [[quarkus-mdns_quarkus-mdns-host]] [.property-path]##link:#quarkus-mdns_quarkus-mdns-host[`+++quarkus.mdns.host+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.mdns.host+++[]
 endif::add-copy-button-to-config-props[]
@@ -49,7 +49,7 @@ endif::add-copy-button-to-env-var[]
 |string
 |
 
-a| [[quarkus-mdns_quarkus-mdns-type]] [.property-path]##link:#quarkus-mdns_quarkus-mdns-type[`quarkus.mdns.type`]##
+a| [[quarkus-mdns_quarkus-mdns-type]] [.property-path]##link:#quarkus-mdns_quarkus-mdns-type[`+++quarkus.mdns.type+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.mdns.type+++[]
 endif::add-copy-button-to-config-props[]
@@ -70,7 +70,7 @@ endif::add-copy-button-to-env-var[]
 |string
 |`+++_http._tcp.local.+++`
 
-a| [[quarkus-mdns_quarkus-mdns-weight]] [.property-path]##link:#quarkus-mdns_quarkus-mdns-weight[`quarkus.mdns.weight`]##
+a| [[quarkus-mdns_quarkus-mdns-weight]] [.property-path]##link:#quarkus-mdns_quarkus-mdns-weight[`+++quarkus.mdns.weight+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.mdns.weight+++[]
 endif::add-copy-button-to-config-props[]
@@ -91,7 +91,7 @@ endif::add-copy-button-to-env-var[]
 |int
 |`+++0+++`
 
-a| [[quarkus-mdns_quarkus-mdns-priority]] [.property-path]##link:#quarkus-mdns_quarkus-mdns-priority[`quarkus.mdns.priority`]##
+a| [[quarkus-mdns_quarkus-mdns-priority]] [.property-path]##link:#quarkus-mdns_quarkus-mdns-priority[`+++quarkus.mdns.priority+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.mdns.priority+++[]
 endif::add-copy-button-to-config-props[]
@@ -112,7 +112,7 @@ endif::add-copy-button-to-env-var[]
 |int
 |`+++0+++`
 
-a| [[quarkus-mdns_quarkus-mdns-props-props]] [.property-path]##link:#quarkus-mdns_quarkus-mdns-props-props[`quarkus.mdns.props."props"`]##
+a| [[quarkus-mdns_quarkus-mdns-props-props]] [.property-path]##link:#quarkus-mdns_quarkus-mdns-props-props[`+++quarkus.mdns.props."props"+++`]##
 ifdef::add-copy-button-to-config-props[]
 config_property_copy_button:+++quarkus.mdns.props."props"+++[]
 endif::add-copy-button-to-config-props[]

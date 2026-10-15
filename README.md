@@ -95,6 +95,15 @@ public void listServices() {
 }
 ```
 
+## Compatibility
+
+| mDNS version | Quarkus version |
+| ------------ | --------------- |
+| 1.4.x        | 3.27.1+         |
+| 2.x          | 4.0.0.Beta1+    |
+
+2.x targets Quarkus 4 and requires JDK 21. If you are still on Quarkus 3, stay on 1.4.x, which is maintained from the `1.x` branch.
+
 ## 🧑‍💻 Contributing
 
 - Contribution is the best way to support and get involved in community!

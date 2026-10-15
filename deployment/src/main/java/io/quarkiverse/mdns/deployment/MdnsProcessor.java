@@ -6,8 +6,8 @@ import java.util.stream.Stream;
 import org.jboss.logging.Logger;
 
 import io.quarkiverse.mdns.runtime.JmDNSProducer;
+import io.quarkiverse.mdns.runtime.MdnsBuildTimeConfig;
 import io.quarkiverse.mdns.runtime.MdnsRecorder;
-import io.quarkiverse.mdns.runtime.MdnsRuntimeConfig;
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.BeanContainerBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -33,10 +33,9 @@ class MdnsProcessor {
     }
 
     @BuildStep
-    @Record(ExecutionTime.RUNTIME_INIT)
-    public ExtensionEnabledBuildItem checkExtensionEnabled(MdnsRecorder recorder, LaunchModeBuildItem launchMode,
-            MdnsRuntimeConfig runtimeConfig) {
-        Optional<Boolean> enabled = runtimeConfig.enabled();
+    public ExtensionEnabledBuildItem checkExtensionEnabled(LaunchModeBuildItem launchMode,
+            MdnsBuildTimeConfig buildTimeConfig) {
+        Optional<Boolean> enabled = buildTimeConfig.enabled();
         if (enabled != null && enabled.isPresent() && !enabled.get()) {
             LOG.info("mDNS is explicitly disabled.");
             return null;
