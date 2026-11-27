@@ -20,25 +20,27 @@ import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 
 import io.quarkus.arc.runtime.BeanContainer;
-import io.quarkus.runtime.RuntimeValue;
-import io.quarkus.runtime.ShutdownContext;
-import io.quarkus.runtime.annotations.Recorder;
+import io.quarkus.core.StartContext;
 
-@Recorder
-public class MdnsRecorder {
+/**
+ * Static runtime startup logic for mDNS, invoked from the {@code ServiceRegistrar} service registered by the
+ * deployment module.
+ */
+public final class MdnsRecorder {
 
     private static final Logger LOG = Logger.getLogger(MdnsRecorder.class);
 
-    /**
-     * The runtime configuration for Temporal.
-     */
-    final RuntimeValue<MdnsRuntimeConfig> runtimeConfig;
-
-    public MdnsRecorder(RuntimeValue<MdnsRuntimeConfig> runtimeConfig) {
-        this.runtimeConfig = runtimeConfig;
+    private MdnsRecorder() {
     }
 
-    public void initMdns(BeanContainer container, ShutdownContext shutdownContext) {
+    /**
+     * Creates and registers the JmDNS service, and closes it when the service stops.
+     *
+     * @param ctx the service start context, used to register the stop task
+     * @param container the bean container
+     * @param runtimeConfig the mDNS runtime configuration
+     */
+    public static void initMdns(StartContext ctx, BeanContainer container, MdnsRuntimeConfig runtimeConfig) {
         try {
             JmDNSProducer producer = container.beanInstance(JmDNSProducer.class);
             InetAddress inetAddress = getIpAddress();
@@ -49,7 +51,7 @@ public class MdnsRecorder {
                         "For mDNS to work properly, 'quarkus.http.host' must be set to '0.0.0.0' for the local domain URL to be accessible.");
             }
             String defaultName = appName.orElse(inetAddress.getHostName());
-            String name = toURLFriendly(runtimeConfig.getValue().host().orElse(defaultName));
+            String name = toURLFriendly(runtimeConfig.host().orElse(defaultName));
             LOG.infof("Registering mDNS service '%s'", name);
             JmDNS jmdns = JmDNS.create(inetAddress, name);
             Optional<Integer> port = ConfigProvider.getConfig().getOptionalValue("quarkus.http.port", Integer.class);
@@ -57,14 +59,14 @@ public class MdnsRecorder {
             final String url = "http://%s.local:%d/".formatted(name, quarkusPort);
             final Map<String, String> properties = new HashMap<>();
             properties.put("URL", url);
-            properties.putAll(runtimeConfig.getValue().props());
-            ServiceInfo serviceInfo = ServiceInfo.create(runtimeConfig.getValue().type(), name, quarkusPort,
-                    runtimeConfig.getValue().weight(),
-                    runtimeConfig.getValue().priority(), properties);
+            properties.putAll(runtimeConfig.props());
+            ServiceInfo serviceInfo = ServiceInfo.create(runtimeConfig.type(), name, quarkusPort,
+                    runtimeConfig.weight(),
+                    runtimeConfig.priority(), properties);
             jmdns.registerService(serviceInfo);
             LOG.infof("The application is available from: %s", url);
             producer.initialize(jmdns, url);
-            shutdownContext.addShutdownTask(producer::close);
+            ctx.onStop(producer::close);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

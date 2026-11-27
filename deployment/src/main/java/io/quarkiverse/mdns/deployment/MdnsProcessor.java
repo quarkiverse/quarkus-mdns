@@ -8,16 +8,16 @@ import org.jboss.logging.Logger;
 import io.quarkiverse.mdns.runtime.JmDNSProducer;
 import io.quarkiverse.mdns.runtime.MdnsBuildTimeConfig;
 import io.quarkiverse.mdns.runtime.MdnsRecorder;
+import io.quarkiverse.mdns.runtime.MdnsRuntimeConfig;
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
-import io.quarkus.arc.deployment.BeanContainerBuildItem;
+import io.quarkus.arc.runtime.BeanContainer;
+import io.quarkus.core.deployment.service.ServiceRegistrar;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.Consume;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.LaunchModeBuildItem;
-import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
+import io.quarkus.deployment.builditem.ServiceStartBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedPackageBuildItem;
 import io.quarkus.runtime.LaunchMode;
 
@@ -63,10 +63,14 @@ class MdnsProcessor {
 
     @BuildStep
     @Consume(ExtensionEnabledBuildItem.class)
-    @Record(ExecutionTime.RUNTIME_INIT)
-    void initializeMdns(BeanContainerBuildItem beanContainer, MdnsRecorder recorder,
-            ShutdownContextBuildItem shutdownContextBuildItem) {
-        recorder.initMdns(beanContainer.getValue(), shutdownContextBuildItem);
+    ServiceStartBuildItem initializeMdns(ServiceRegistrar serviceRegistrar) {
+        serviceRegistrar
+                .forService("io.quarkiverse.mdns.setup")
+                .require(BeanContainer.class)
+                .require(MdnsRuntimeConfig.class)
+                .onStart((ctx, container, config) -> MdnsRecorder.initMdns(ctx, container, config));
+        // the StartupEvent waits for ServiceStartBuildItem producers, so JmDNS is ready for startup observers
+        return new ServiceStartBuildItem(FEATURE);
     }
 
     @BuildStep
